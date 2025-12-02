@@ -41,7 +41,7 @@ public class Login {
         loginButton.setDefaultButton(true);
 
         loginButton.setOnAction(e -> {
-            String user = userField.getText();
+            String user = userField.getText().trim();
             String password = passwordField.getText();
 
             if (user.isEmpty() || password.isEmpty()) {

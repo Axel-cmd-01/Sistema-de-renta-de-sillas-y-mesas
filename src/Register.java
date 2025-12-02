@@ -53,10 +53,10 @@ public class Register {
         registerButton.setDefaultButton(true);
 
         registerButton.setOnAction(e -> {
-            String user = userField.getText();
-            String email = emailField.getText();
-            String password = passwordField.getText();
-            String confirmPassword = confirmPasswordField.getText();
+            String user = userField.getText().trim();
+            String email = emailField.getText().trim();
+            String password = passwordField.getText().trim();
+            String confirmPassword = confirmPasswordField.getText().trim();
 
             if (user.isEmpty() ||  email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 errorLabel.setText("Por favor complete todos los campos");
