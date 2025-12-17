@@ -22,34 +22,47 @@ public class Register {
     }
 
     public void show() {
+        VBox root = new VBox();
+        root.setAlignment(Pos.CENTER);
+
+        VBox main = new VBox();
+        main.setAlignment(Pos.CENTER);
+        main.setPadding(new Insets(50));
+        main.setMaxWidth(900);
+        main.getStyleClass().add("main-container");
+
         Label titleLabel = new Label("Registrarse");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 32));
+        titleLabel.getStyleClass().add("title-label");
 
         Label userLabel = new Label("Nombre:");
+        userLabel.getStyleClass().add("field-label");
         TextField userField = new TextField();
-        userField.setMaxWidth(250);
+        userField.getStyleClass().add("custom-text-field");
         userField.setPromptText("Ingrese un nombre de usuario:");
 
         Label emailLabel = new Label("Correo electrónico:");
+        emailLabel.getStyleClass().add("field-label");
         TextField emailField = new TextField();
-        emailField.setMaxWidth(250);
+        emailField.getStyleClass().add("custom-text-field");
         emailField.setPromptText("Ingrese un correo electronico");
 
         Label passwordLabel = new Label("Contraseña:");
+        passwordLabel.getStyleClass().add("field-label");
         PasswordField passwordField = new PasswordField();
-        passwordField.setMaxWidth(250);
+        passwordField.getStyleClass().add("custom-text-field");
         passwordField.setPromptText("Ingrese una contraseña");
 
         Label confirmPasswordLabel = new Label("Confirmar contraseña");
+        confirmPasswordLabel.getStyleClass().add("field-label");
         PasswordField confirmPasswordField = new PasswordField();
-        confirmPasswordField.setMaxWidth(250);
+        confirmPasswordField.getStyleClass().add("custom-text-field");
         confirmPasswordField.setPromptText("Confirme su contraseña");
 
         Label errorLabel = new Label();
+        errorLabel.getStyleClass().add("error-label");
 
         Button registerButton = new Button("Registrarse");
-        registerButton.setPrefWidth(200);
-        registerButton.setStyle("-fx-background-color: blue; -fx-text-fill: white");
+        registerButton.getStyleClass().add("register-button");
         registerButton.setDefaultButton(true);
 
         registerButton.setOnAction(e -> {
@@ -89,17 +102,14 @@ public class Register {
         });
 
         Button iniciarSesionButton = new Button("¿Ya tienes cuenta? - Iniciar Sesión");
-        iniciarSesionButton.setStyle("-fx-background-color: transparent; -fx-text-fill: blue; -fx-underline: true;");
+        iniciarSesionButton.getStyleClass().add("login-button");
 
         iniciarSesionButton.setOnAction(e -> {
             Login login = new Login(stage);
             login.show();
         });
 
-        VBox layout = new VBox(15);
-        layout.setAlignment(Pos.CENTER);
-        layout.setPadding(new Insets(40));
-        layout.getChildren().addAll(
+        main.getChildren().addAll(
                 titleLabel,
                 userLabel,
                 userField,
@@ -114,7 +124,13 @@ public class Register {
                 iniciarSesionButton
         );
 
-        Scene scene = new Scene(layout, 1200, 690);
+        root.getChildren().add(main);
+
+        Scene scene = new Scene(root, 1200, 690);
+
+        String css = this.getClass().getResource("/styles/register.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.setTitle("Renta de sillas y mesas - Registrarse");
         stage.show();

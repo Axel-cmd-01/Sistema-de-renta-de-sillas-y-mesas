@@ -139,7 +139,7 @@ public class Login {
 
         });
 
-        Button registerButton = new Button("¿No tienes cuenta? - Registrate");
+        Button registerButton = new Button("¿No tienes cuenta? - Regístrate");
         registerButton.getStyleClass().add("register-button");
 
         registerButton.setOnAction(e -> {
