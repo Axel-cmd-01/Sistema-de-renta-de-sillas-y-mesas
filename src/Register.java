@@ -55,8 +55,8 @@ public class Register {
         registerButton.setOnAction(e -> {
             String user = userField.getText().trim();
             String email = emailField.getText().trim();
-            String password = passwordField.getText().trim();
-            String confirmPassword = confirmPasswordField.getText().trim();
+            String password = passwordField.getText();
+            String confirmPassword = confirmPasswordField.getText();
 
             if (user.isEmpty() ||  email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 errorLabel.setText("Por favor complete todos los campos");
@@ -114,7 +114,7 @@ public class Register {
                 iniciarSesionButton
         );
 
-        Scene scene = new Scene(layout, 840, 700);
+        Scene scene = new Scene(layout, 1200, 690);
         stage.setScene(scene);
         stage.setTitle("Renta de sillas y mesas - Registrarse");
         stage.show();

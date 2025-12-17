@@ -36,7 +36,7 @@ public class Dashboard {
 
         mainLayout.setCenter(contentArea);
 
-        Scene scene = new Scene(mainLayout, 840, 700);
+        Scene scene = new Scene(mainLayout, 1200, 690);
         stage.setScene(scene);
         stage.setTitle("Renta de sillas y mesas - Dashboard");
         stage.show();

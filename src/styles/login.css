@@ -1,0 +1,112 @@
+/* Estilos generales */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #FFF5E6 0%, #FFE4CC 50%, #FFD4B3 100%);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Contenedor principal */
+.login-container {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0, 0, 5);
+    -fx-padding: 40;
+    -fx-spacing: 15;
+}
+
+/* Título */
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-padding: 0 0 20 0;
+}
+
+/* Labels de campos */
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #333333;
+    -fx-padding: 5 0 5 0;
+}
+
+/* Campos de texto */
+.custom-text-field {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 12;
+    -fx-font-size: 14px;
+    -fx-pref-width: 300;
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #FFD3AD;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+}
+
+/* Label de error */
+.error-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 5 0 5 0;
+}
+
+/* Botón de login */
+.login-button {
+    -fx-background-color: #FFD3AD;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-width: 300;
+    -fx-pref-height: 45;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.4), 10, 0, 0, 3);
+}
+
+.login-button:hover {
+    -fx-background-color: #FFD3AD;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.6), 15, 0, 0, 5);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}
+
+.login-button:pressed {
+    -fx-background-color: #FFD3AD;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.3), 5, 0, 0, 1);
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* Botón de registro */
+.register-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+}
+
+.register-button:hover {
+    -fx-text-fill: #764ba2;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+
+.toggle-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-size: 18px;
+    -fx-padding: 5 10;
+    -fx-border-width: 0;
+}
+
+/* Animaciones suaves */
+* {
+    -fx-transition: all 0.3s ease;
+}

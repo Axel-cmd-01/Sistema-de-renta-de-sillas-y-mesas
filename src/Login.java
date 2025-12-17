@@ -2,9 +2,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -14,30 +19,101 @@ import java.sql.SQLException;
 
 public class Login {
     private Stage stage;
+    private boolean isPasswordVisible = false;
 
     public Login(Stage stage) {
         this.stage = stage;
     }
 
     public void show() {
+        /* Este es el contenido que se establece en el scene */
+        VBox root = new VBox();
+        root.setAlignment(Pos.CENTER);
+
+        /* Este es el contenidor principal*/
+        HBox main = new HBox(40);
+        main.setAlignment(Pos.CENTER);
+        main.setPadding(new Insets(50));
+        main.setMaxWidth(900);
+        main.getStyleClass().add("login-container");
+
+        /* Este es lado izquierdo, es decir el formulario */
+        VBox leftSide = new VBox(15);
+        leftSide.setAlignment(Pos.CENTER);
+        leftSide.setPadding(new Insets(30));
+        leftSide.setPrefWidth(400);
+
+        /* Elementos dentro del leftSide */
         Label titleLabel = new Label("Iniciar sesión");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 32));
+        titleLabel.getStyleClass().add("title-label");
 
         Label userLabel = new Label("Usuario:");
+        userLabel.getStyleClass().add("field-label");
         TextField userField = new TextField();
-        userField.setMaxWidth(250);
         userField.setPromptText("Ingrese su nombre de usuario");
+        userField.getStyleClass().add("custom-text-field");
 
         Label passwordLabel = new Label("Contraseña:");
+        passwordLabel.getStyleClass().add("field-label");
+
         PasswordField passwordField = new PasswordField();
-        passwordField.setMaxWidth(250);
         passwordField.setPromptText("Ingrese su contraseña");
+        passwordField.getStyleClass().add("custom-text-field");
+
+        TextField passwordTextField = new TextField();
+        passwordTextField.setPromptText("Ingrese su contraseña");
+        passwordTextField.getStyleClass().add("custom-text-field");
+        passwordTextField.setVisible(false);
+        passwordTextField.setManaged(false);
+
+        passwordField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!isPasswordVisible) {
+                passwordTextField.setText(newVal);
+            }
+        });
+
+        passwordTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isPasswordVisible) {
+                passwordField.setText(newVal);
+            }
+        });
+
+        Button toggleButton = new Button("👁");
+        toggleButton.getStyleClass().add("toggle-button");
+
+        toggleButton.setOnAction(e -> {
+            isPasswordVisible = !isPasswordVisible;
+
+            if (isPasswordVisible) {
+                passwordTextField.setText(passwordField.getText());
+                passwordField.setVisible(false);
+                passwordField.setManaged(false);
+                passwordTextField.setVisible(true);
+                passwordTextField.setManaged(true);
+                toggleButton.setText("👁");
+            } else {
+                passwordField.setText(passwordTextField.getText());
+                passwordTextField.setVisible(false);
+                passwordTextField.setManaged(false);
+                passwordField.setVisible(true);
+                passwordField.setManaged(true);
+                toggleButton.setText("👁");
+            }
+        });
+
+        StackPane passwordContainer = new StackPane();
+        passwordContainer.getChildren().addAll(passwordField, passwordTextField, toggleButton);
+        StackPane.setAlignment(passwordField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(passwordTextField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(toggleButton, Pos.CENTER_RIGHT);
+        toggleButton.setTranslateX(-10);
+        toggleButton.setText("👁");
 
         Label errorLabel = new Label();
+        errorLabel.getStyleClass().add("error-label");
 
         Button loginButton = new Button("Iniciar Sesión");
-        loginButton.setPrefWidth(200);
-        loginButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+        loginButton.getStyleClass().add("login-button");
         loginButton.setDefaultButton(true);
 
         loginButton.setOnAction(e -> {
@@ -64,28 +140,53 @@ public class Login {
         });
 
         Button registerButton = new Button("¿No tienes cuenta? - Registrate");
-        registerButton.setStyle("-fx-background-color: transparent; -fx-text-fill: blue; -fx-underline: true;");
+        registerButton.getStyleClass().add("register-button");
 
         registerButton.setOnAction(e -> {
             Register register = new Register(stage);
             register.show();
         });
 
-        VBox layout = new VBox(15);
-        layout.setAlignment(Pos.CENTER);
-        layout.setPadding(new Insets(40));
-        layout.getChildren().addAll(
+
+        leftSide.getChildren().addAll(
                 titleLabel,
                 userLabel,
                 userField,
                 passwordLabel,
-                passwordField,
+                passwordContainer,
                 errorLabel,
                 loginButton,
                 registerButton
         );
 
-        Scene scene = new Scene(layout, 840, 700);
+        /* Este es el lado derecho, es decir la imagen */
+        VBox rightSide = new VBox();
+        rightSide.setAlignment(Pos.CENTER);
+        rightSide.setPrefWidth(400);
+
+        try {
+            Image image = new Image(getClass().getResourceAsStream("/images/chair.png"));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(350);
+            imageView.setFitWidth(350);
+            imageView.setPreserveRatio(true);
+            rightSide.getChildren().add(imageView);
+        } catch (Exception e) {
+            System.out.println("No se pudo cargar la silla");
+        };
+
+        main.getChildren().addAll(
+                leftSide,
+                rightSide
+        );
+
+        root.getChildren().add(main);
+
+        Scene scene = new Scene(root, 1200, 690);
+
+        String css = this.getClass().getResource("/styles/login.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.setTitle("Renta de sillas y mesas - Iniciar Sesión");
         stage.show();
