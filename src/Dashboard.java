@@ -76,19 +76,19 @@ public class Dashboard {
         });
 
         rentarBtn.setOnAction(e -> {
-            RentarView.showRentarView(contentArea);
+            RentalFormView.showRentarView(contentArea);
         });
 
         misRentasBtn.setOnAction(e -> {
-            MisRentasView.showMisRentasView(contentArea);
+            RentalsView.showMisRentasView(contentArea);
         });
 
         inventarioBtn.setOnAction(e -> {
-            InventarioView.showInventarioView(contentArea);
+            InventoryView.showInventarioView(contentArea);
         });
 
         perfilBtn.setOnAction(e -> {
-            PerfilView.showPerfilView(contentArea, user);
+            ProfileView.showPerfilView(contentArea, user);
         });
 
         cerrarSesionBtn.setOnAction(e -> {

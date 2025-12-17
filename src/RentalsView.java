@@ -10,7 +10,7 @@ import javafx.scene.text.FontWeight;
 import java.sql.*;
 
 
-public class MisRentasView {
+public class RentalsView {
     public static void showMisRentasView(VBox contentArea) {
         contentArea.getChildren().clear();
 
@@ -20,46 +20,46 @@ public class MisRentasView {
         Region spacer = new Region();
         spacer.setPrefHeight(10);
 
-        TableView<Rentas> table = new TableView<>();
+        TableView<Rentals> table = new TableView<>();
         table.setPrefHeight(400);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        TableColumn<Rentas, String> columnaNombre = new TableColumn<>("Nombre");
+        TableColumn<Rentals, String> columnaNombre = new TableColumn<>("Nombre");
         columnaNombre.setPrefWidth(150);
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCliente"));
 
-        TableColumn<Rentas, String> columnaTelefono = new TableColumn<>("Telefono");
+        TableColumn<Rentals, String> columnaTelefono = new TableColumn<>("Telefono");
         columnaTelefono.setPrefWidth(150);
         columnaTelefono.setCellValueFactory(new PropertyValueFactory<>("telefonoCliente"));
 
-        TableColumn<Rentas, Integer> columnaMesas = new TableColumn<>("Mesas");
+        TableColumn<Rentals, Integer> columnaMesas = new TableColumn<>("Mesas");
         columnaMesas.setPrefWidth(100);
         columnaMesas.setCellValueFactory(new PropertyValueFactory<>("numeroMesas"));
 
-        TableColumn<Rentas, Integer> columnaSillas = new TableColumn<>("Sillas");
+        TableColumn<Rentals, Integer> columnaSillas = new TableColumn<>("Sillas");
         columnaSillas.setPrefWidth(100);
         columnaSillas.setCellValueFactory(new PropertyValueFactory<>("numeroSillas"));
 
-        TableColumn<Rentas, String> columnaDireccion = new TableColumn<>("Dirección");
+        TableColumn<Rentals, String> columnaDireccion = new TableColumn<>("Dirección");
         columnaDireccion.setPrefWidth(200);
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("direccionCliente"));
 
-        TableColumn<Rentas, String> columnaFecha = new TableColumn<>("Fecha");
+        TableColumn<Rentals, String> columnaFecha = new TableColumn<>("Fecha");
         columnaFecha.setPrefWidth(100);
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechaRenta"));
 
-        TableColumn<Rentas, String> columnaHorario = new TableColumn<>("Horario");
+        TableColumn<Rentals, String> columnaHorario = new TableColumn<>("Horario");
         columnaHorario.setPrefWidth(100);
         columnaHorario.setCellValueFactory(new PropertyValueFactory<>("horarioRenta"));
 
-        TableColumn<Rentas, String> columnaCosto = new TableColumn<>("Costo");
+        TableColumn<Rentals, String> columnaCosto = new TableColumn<>("Costo");
         columnaCosto.setPrefWidth(100);
         columnaCosto.setCellValueFactory(new PropertyValueFactory<>("costoRenta"));
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(columnaNombre, columnaTelefono, columnaMesas, columnaSillas, columnaDireccion, columnaFecha, columnaHorario, columnaCosto);
 
-        ObservableList<Rentas> rentas = cargarRentas();
+        ObservableList<Rentals> rentas = cargarRentas();
         table.setItems(rentas);
 
         Button actualizarButton = new Button("Actualizar Lista");
@@ -67,7 +67,7 @@ public class MisRentasView {
         actualizarButton.setStyle("-fx-background-color: #9DB2BF; -fx-padding: 8; -fx-font-size: 16; -fx-cursor: hand;");
 
         actualizarButton.setOnAction(e -> {
-            ObservableList<Rentas> nuevasRentas = cargarRentas();
+            ObservableList<Rentals> nuevasRentas = cargarRentas();
             table.setItems(nuevasRentas);
         });
 
@@ -78,8 +78,8 @@ public class MisRentasView {
         );
     }
 
-    private static ObservableList<Rentas> cargarRentas() {
-        ObservableList<Rentas> listaRentas = FXCollections.observableArrayList();
+    private static ObservableList<Rentals> cargarRentas() {
+        ObservableList<Rentals> listaRentas = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM rentas ORDER BY renta_id DESC";
 
@@ -93,7 +93,7 @@ public class MisRentasView {
             rs = pstmt.executeQuery(sql);
 
             while (rs.next()) {
-                Rentas rentas = new Rentas(
+                Rentals rentals = new Rentals(
                         rs.getInt("renta_id"),
                         rs.getString("nombreCliente"),
                         rs.getString("telefonoCliente"),
@@ -104,7 +104,7 @@ public class MisRentasView {
                         rs.getString("horarioRenta"),
                         rs.getString("costoRenta")
                 );
-                listaRentas.add(rentas);
+                listaRentas.add(rentals);
             }
             System.out.println("Renta guardada: " + listaRentas.size());
         } catch (SQLException e) {

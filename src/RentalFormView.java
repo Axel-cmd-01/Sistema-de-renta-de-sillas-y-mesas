@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class RentarView {
+public class RentalFormView {
     public static void showRentarView(VBox contentArea) {
         contentArea.getChildren().clear();
 

@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class PerfilView {
+public class ProfileView {
     public static void showPerfilView(VBox contentArea, String user) {
         // Modificar todo
 

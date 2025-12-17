@@ -1,4 +1,4 @@
-public class Rentas {
+public class Rentals {
     private int renta_id;
     private String nombreCliente;
     private String telefonoCliente;
@@ -9,10 +9,10 @@ public class Rentas {
     private String horarioRenta;
     private String costoRenta;
 
-    public Rentas() {
+    public Rentals() {
     }
 
-    public Rentas(int renta_id, String nombreCliente, String telefonoCliente, int numeroMesas, int numeroSillas, String direccionCliente, String fechaRenta, String horarioRenta, String costoRenta) {
+    public Rentals(int renta_id, String nombreCliente, String telefonoCliente, int numeroMesas, int numeroSillas, String direccionCliente, String fechaRenta, String horarioRenta, String costoRenta) {
         this.renta_id = renta_id;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
