@@ -5,17 +5,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Stack;
 
 public class Register {
     private Stage stage;
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
 
     public Register(Stage stage) {
         this.stage = stage;
@@ -25,7 +27,7 @@ public class Register {
         VBox root = new VBox();
         root.setAlignment(Pos.CENTER);
 
-        VBox main = new VBox();
+        VBox main = new VBox(5);
         main.setAlignment(Pos.CENTER);
         main.setPadding(new Insets(50));
         main.setMaxWidth(900);
@@ -52,11 +54,111 @@ public class Register {
         passwordField.getStyleClass().add("custom-text-field");
         passwordField.setPromptText("Ingrese una contraseña");
 
+        TextField passwordTextField = new TextField();
+        passwordTextField.getStyleClass().add("custom-text-field");
+        passwordTextField.setPromptText("Ingrese una contraseña");
+        passwordTextField.setVisible(false);
+        passwordTextField.setManaged(false);
+
+        passwordField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!isPasswordVisible) {
+                passwordTextField.setText(newVal);
+            }
+        });
+
+        passwordTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isPasswordVisible) {
+                passwordField.setText(newVal);
+            }
+        });
+
+        Button toggleButtonOne = new Button("👁");
+        toggleButtonOne.getStyleClass().add("toggle-button");
+
+        toggleButtonOne.setOnAction(e -> {
+            isPasswordVisible = !isPasswordVisible;
+
+            if (isPasswordVisible) {
+                passwordTextField.setText(passwordField.getText());
+                passwordField.setVisible(false);
+                passwordField.setManaged(false);
+                passwordTextField.setVisible(true);
+                passwordTextField.setManaged(true);
+                toggleButtonOne.setText("👁");
+            } else {
+                passwordField.setText(passwordTextField.getText());
+                passwordTextField.setVisible(false);
+                passwordTextField.setManaged(false);
+                passwordField.setVisible(true);
+                passwordField.setManaged(true);
+                toggleButtonOne.setText("👁");
+            }
+        });
+
+        StackPane passwordContainer = new StackPane();
+        passwordContainer.getChildren().addAll(passwordField, passwordTextField, toggleButtonOne);
+        StackPane.setAlignment(passwordField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(passwordTextField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(toggleButtonOne, Pos.CENTER_RIGHT);
+        toggleButtonOne.setTranslateX(-10);
+        passwordContainer.setMaxWidth(300);
+        passwordContainer.setPrefWidth(300);
+
         Label confirmPasswordLabel = new Label("Confirmar contraseña");
         confirmPasswordLabel.getStyleClass().add("field-label");
         PasswordField confirmPasswordField = new PasswordField();
         confirmPasswordField.getStyleClass().add("custom-text-field");
         confirmPasswordField.setPromptText("Confirme su contraseña");
+
+        TextField confirmPasswordTextField = new TextField();
+        confirmPasswordTextField.getStyleClass().add("custom-text-field");
+        confirmPasswordTextField.setPromptText("Confirme su contraseña");
+        confirmPasswordTextField.setVisible(false);
+        confirmPasswordTextField.setManaged(false);
+
+        confirmPasswordField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!isConfirmPasswordVisible) {
+                confirmPasswordTextField.setText(newVal);
+            }
+        });
+
+        confirmPasswordTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (isConfirmPasswordVisible) {
+                confirmPasswordField.setText(newVal);
+            }
+        });
+
+        Button toggleButtonTwo = new Button("👁");
+        toggleButtonTwo.getStyleClass().add("toggle-button");
+
+        toggleButtonTwo.setOnAction(e -> {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
+
+            if (isConfirmPasswordVisible) {
+                confirmPasswordTextField.setText(confirmPasswordField.getText());
+                confirmPasswordField.setVisible(false);
+                confirmPasswordField.setManaged(false);
+                confirmPasswordTextField.setVisible(true);
+                confirmPasswordTextField.setManaged(true);
+                toggleButtonTwo.setText("👁");
+            } else {
+                confirmPasswordField.setText(confirmPasswordTextField.getText());
+                confirmPasswordTextField.setVisible(false);
+                confirmPasswordTextField.setManaged(false);
+                confirmPasswordField.setVisible(true);
+                confirmPasswordField.setManaged(true);
+                toggleButtonTwo.setText("👁");
+            }
+        });
+
+        StackPane confirmPasswordContainer = new StackPane();
+        confirmPasswordContainer.getChildren().addAll(confirmPasswordField, confirmPasswordTextField, toggleButtonTwo);
+        StackPane.setAlignment(confirmPasswordField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(confirmPasswordTextField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(toggleButtonTwo, Pos.CENTER_RIGHT);
+        toggleButtonTwo.setTranslateX(-10);
+        confirmPasswordContainer.setMaxWidth(300);
+        confirmPasswordContainer.setPrefWidth(300);
 
         Label errorLabel = new Label();
         errorLabel.getStyleClass().add("error-label");
@@ -69,7 +171,7 @@ public class Register {
             String user = userField.getText().trim();
             String email = emailField.getText().trim();
             String password = passwordField.getText();
-            String confirmPassword = confirmPasswordField.getText();
+            String confirmPassword = confirmPasswordTextField.getText();
 
             if (user.isEmpty() ||  email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 errorLabel.setText("Por favor complete todos los campos");
@@ -92,7 +194,8 @@ public class Register {
                     userField.clear();
                     emailField.clear();
                     passwordField.clear();
-                    confirmPasswordField.clear();
+                    passwordTextField.clear();
+                    confirmPasswordTextField.clear();
 
                 } else {
                     errorLabel.setText("Error al registrarse");
@@ -116,9 +219,9 @@ public class Register {
                 emailLabel,
                 emailField,
                 passwordLabel,
-                passwordField,
+                passwordContainer,
                 confirmPasswordLabel,
-                confirmPasswordField,
+                confirmPasswordContainer,
                 errorLabel,
                 registerButton,
                 iniciarSesionButton
