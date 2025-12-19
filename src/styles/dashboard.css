@@ -1,0 +1,43 @@
+.sidebar-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-pref-width: 250;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.title-label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.userLabel {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+}
+
+.buttons {
+    -fx-background-color: #FFD3AD;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-pref-width: 250;
+    -fx-cursor: hand;
+    -fx-padding: 12;
+    -fx-alignment: center-left;
+    -fx-font-weight: bold;
+}
+
+.buttons:hover {
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.6), 15, 0, 0, 5);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}
+
+.content-area {
+    -fx-background-color: linear-gradient(to bottom right, #FFF5E6 0%, #FFE4CC 50%, #FFD4B3 100%);
+}
+
+* {
+    -fx-transition: all 0.3s ease;
+}

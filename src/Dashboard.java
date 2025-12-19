@@ -6,8 +6,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Dashboard {
@@ -30,31 +28,31 @@ public class Dashboard {
         contentArea = new VBox(20);
         contentArea.setAlignment(Pos.CENTER);
         contentArea.setPadding(new Insets(40));
-        contentArea.setStyle("-fx-background-color: #f5f5f5");
+        contentArea.getStyleClass().add("content-area");
 
         HomeView.showHomeView(user, contentArea);
 
         mainLayout.setCenter(contentArea);
 
         Scene scene = new Scene(mainLayout, 1200, 690);
+
+        String css = this.getClass().getResource("/styles/dashboard.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.setTitle("Renta de sillas y mesas - Dashboard");
         stage.show();
     }
 
     private VBox createSidebar() {
-        VBox sidebar = new VBox(15);
-        sidebar.setPadding(new Insets(20));
-        sidebar.setStyle("-fx-background-color: #2c3e50;");
-        sidebar.setPrefWidth(250);
+        VBox sidebar = new VBox();
+        sidebar.getStyleClass().add("sidebar-container");
 
         Label tittleLabel = new Label("Dashboard");
-        tittleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        tittleLabel.setStyle("-fx-text-fill: white;");
+        tittleLabel.getStyleClass().add("title-label");
 
         Label userLabel = new Label("Usuario: " + user);
-        userLabel.setFont(Font.font("Arial", 14));
-        userLabel.setStyle("-fx-text-fill: #ecf0f1;");
+        userLabel.getStyleClass().add("userLabel");
 
         Region spacer = new Region();
         spacer.setPrefHeight(20);
@@ -114,20 +112,8 @@ public class Dashboard {
 
     private Button createNavButton(String text) {
         Button btn = new Button(text);
-        btn.setPrefWidth(210);
-        btn.setStyle("-fx-background-color: #34495e; -fx-text-fill: white; " +
-                "-fx-font-size: 14; -fx-padding: 12; -fx-cursor: hand; " +
-                "-fx-alignment: CENTER-LEFT;");
-        btn.setOnMouseEntered(e -> {
-            btn.setStyle("-fx-background-color: #1abc9c; -fx-text-fill: white; " +
-                    "-fx-font-size: 14; -fx-padding: 12; -fx-cursor: hand; " +
-                    "-fx-alignment: CENTER-LEFT;");
-        });
-        btn.setOnMouseExited(e -> {
-            btn.setStyle("-fx-background-color: #34495e; -fx-text-fill: white; " +
-                    "-fx-font-size: 14; -fx-padding: 12; -fx-cursor: hand; " +
-                    "-fx-alignment: CENTER-LEFT;");
-        });
+        btn.getStyleClass().add("buttons");
+
         return btn;
     }
 }
