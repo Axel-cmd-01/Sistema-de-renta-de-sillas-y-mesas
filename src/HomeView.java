@@ -1,27 +1,28 @@
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Font;
 
 public class HomeView {
 
     public static void showHomeView(String user, VBox contentArea) {
         contentArea.getChildren().clear();
+        contentArea.getStylesheets().clear();
 
-        Label tittleLabel = new Label("Biienvenido " + user);
-        tittleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+        String css = HomeView.class.getResource("/styles/homeView.css").toExternalForm();
+        contentArea.getStylesheets().add(css);
+
+        Label titleLabel = new Label("Bienvenido " + user);
+        titleLabel.getStyleClass().add("titleLabel");
 
         Label subTittleLabel = new Label("Sistema de Renta de Sillas y Mesas");
-        subTittleLabel.setFont(Font.font("Arial", 18));
-        subTittleLabel.setStyle("-fx-text-fill: #7f8c8d;");
+        subTittleLabel.getStyleClass().add("subTitleLabel");
 
         Label info = new Label("Selecciona una opción del menú lateral para comenzar");
-        info.setFont(Font.font("Arial", 14));
+        info.getStyleClass().add("infoLabel");
 
         contentArea.getChildren().addAll(
-                tittleLabel,
-                subTittleLabel,
-                info
+            titleLabel,
+            subTittleLabel,
+            info
         );
     }
 }
