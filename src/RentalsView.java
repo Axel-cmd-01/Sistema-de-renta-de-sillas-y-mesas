@@ -106,7 +106,6 @@ public class RentalsView {
                 );
                 listaRentas.add(rentals);
             }
-            System.out.println("Renta guardada: " + listaRentas.size());
         } catch (SQLException e) {
             System.err.println("Error al cargar rentas");
             e.printStackTrace();

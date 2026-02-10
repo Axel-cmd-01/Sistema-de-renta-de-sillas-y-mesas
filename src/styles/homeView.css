@@ -6,13 +6,13 @@
 }
 
 .subTitleLabel {
-    -fx-text-fill: #7f8c8d;
+    -fx-text-fill: #333333;
     -fx-font-family: "segoe UI", Arial, sans-serif;
     -fx-font-size: 22;
 }
 
 .infoLabel {
-    -fx-text-fill: #7f8c8d;
+    -fx-text-fill: #333333;
     -fx-font-family: "segoe UI", Arial, sans-serif;
     -fx-font-size: 16;
 }

@@ -1,0 +1,56 @@
+.titleLabel {
+    -fx-text-fill: #333333;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.labelActualizar {
+    -fx-text-fill: #333333;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+.labelCantidad {
+    -fx-text-fill: #333333;
+    -fx-font-size: 26;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.fields {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 12;
+    -fx-font-size: 14px;
+    -fx-pref-width: 200;
+    -fx-alignment: center;
+}
+
+.field:focused {
+    -fx-border-color: #FFD3AD;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+}
+
+.buttons {
+    -fx-background-color: #FFD3AD;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-width: 150;
+    -fx-pref-height: 45;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.4), 10, 0, 0, 3);
+    -fx-alignment: center;
+}
+
+.buttons:hover {
+    -fx-background-color: #FFD3AD;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.6), 15, 0, 0, 5);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}

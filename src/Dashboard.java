@@ -62,6 +62,7 @@ public class Dashboard {
         Button misRentasBtn = createNavButton("Mis Rentas");
         Button inventarioBtn = createNavButton("Inventario");
         Button perfilBtn = createNavButton("Mi Perfil");
+        Button actualizarInventarioBtn = createNavButton("Actualizar inventario");
 
         Region spacerButton = new Region();
         VBox.setVgrow(spacerButton, Priority.ALWAYS);
@@ -85,6 +86,10 @@ public class Dashboard {
             InventoryView.showInventarioView(contentArea);
         });
 
+        actualizarInventarioBtn.setOnAction(e -> {
+           UpdateInventoryForm.showUpdateInventoryView(contentArea);
+        });
+
         perfilBtn.setOnAction(e -> {
             ProfileView.showPerfilView(contentArea, user);
         });
@@ -102,6 +107,7 @@ public class Dashboard {
                 rentarBtn,
                 misRentasBtn,
                 inventarioBtn,
+                actualizarInventarioBtn,
                 perfilBtn,
                 spacerButton,
                 cerrarSesionBtn

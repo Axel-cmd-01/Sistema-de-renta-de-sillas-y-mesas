@@ -172,7 +172,7 @@ public class Login {
             imageView.setPreserveRatio(true);
             rightSide.getChildren().add(imageView);
         } catch (Exception e) {
-            System.out.println("No se pudo cargar la silla");
+            System.out.println("No se pudo cargar la imagen de la silla");
         };
 
         main.getChildren().addAll(
