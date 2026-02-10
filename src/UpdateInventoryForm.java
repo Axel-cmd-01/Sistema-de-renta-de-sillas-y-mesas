@@ -51,6 +51,12 @@ public class UpdateInventoryForm {
         agregarSillasField.setPromptText("00");
         agregarSillasField.getStyleClass().add("fields");
 
+        agregarSillasField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                agregarSillasField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+
         TextField quitarSillasField = new TextField();
         quitarSillasField.setPromptText("00");
         quitarSillasField.getStyleClass().add("fields");
@@ -62,6 +68,13 @@ public class UpdateInventoryForm {
         // Agregarle el evento al los botones
         Button agregarSillasBtn = new Button("Agregar");
         agregarSillasBtn.getStyleClass().add("buttons");
+        agregarSillasBtn.setOnAction(e -> {
+            int sumarCantidad = Integer.parseInt(agregarSillasField.getText().trim());
+            if (!agregarSillasField.getText().isEmpty()) {
+                sumarInventario(sumarCantidad, "SILLA");
+                agregarSillasField.clear();
+            }
+        });
 
         // Agregarle el evento al los botones
         Button quitarSillasBtn = new Button("Quitar");
@@ -100,6 +113,12 @@ public class UpdateInventoryForm {
         agregarMesasField.setPromptText("00");
         agregarMesasField.getStyleClass().add("fields");
 
+        agregarMesasField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                agregarMesasField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+
         TextField quitarMesasField = new TextField();
         quitarMesasField.setPromptText("00");
         quitarMesasField.getStyleClass().add("fields");
@@ -111,6 +130,14 @@ public class UpdateInventoryForm {
         // Agregarle el evento al los botones
         Button agregarMesasBtn = new Button("Agregar");
         agregarMesasBtn.getStyleClass().add("buttons");
+
+        agregarMesasBtn.setOnAction(e -> {
+            int sumarCantidad = Integer.parseInt(agregarMesasField.getText().trim());
+            if (!agregarMesasField.getText().isEmpty()) {
+                sumarInventario(sumarCantidad, "MESA");
+                agregarMesasField.clear();
+            }
+        });
 
         // Agregarle el evento al los botones
         Button quitarMesasBtn = new Button("Quitar");
@@ -181,5 +208,23 @@ public class UpdateInventoryForm {
         }
 
         return cantidadMesas;
+    }
+
+    public static void sumarInventario(int sumarCantidad, String tipo) {
+        String sql = "UPDATE inventario SET cantidad = cantidad + ? WHERE tipo = ?";
+
+        Connection connection;
+        PreparedStatement pstmt;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, sumarCantidad);
+            pstmt.setString(2, tipo);
+
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
