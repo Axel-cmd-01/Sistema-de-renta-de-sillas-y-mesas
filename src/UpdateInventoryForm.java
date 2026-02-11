@@ -61,6 +61,12 @@ public class UpdateInventoryForm {
         quitarSillasField.setPromptText("00");
         quitarSillasField.getStyleClass().add("fields");
 
+        quitarSillasField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("\\d*")){
+                quitarSillasField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+
         HBox cantidadSillasFieldBox = new HBox(30);
         cantidadSillasFieldBox.setAlignment(Pos.CENTER);
         cantidadSillasFieldBox.getChildren().addAll(agregarSillasField, quitarSillasField);
@@ -79,6 +85,13 @@ public class UpdateInventoryForm {
         // Agregarle el evento al los botones
         Button quitarSillasBtn = new Button("Quitar");
         quitarSillasBtn.getStyleClass().add("buttons");
+        quitarSillasBtn.setOnAction(e -> {
+            int restarCantidad = Integer.parseInt(quitarSillasField.getText().trim());
+            if (!quitarSillasField.getText().isEmpty()) {
+                restarInventario(restarCantidad, "SILLA");
+                quitarSillasField.clear();
+            }
+        });
 
         HBox buttonsSillasBox = new HBox(80);
         buttonsSillasBox.setAlignment(Pos.CENTER);
@@ -123,6 +136,12 @@ public class UpdateInventoryForm {
         quitarMesasField.setPromptText("00");
         quitarMesasField.getStyleClass().add("fields");
 
+        quitarMesasField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                quitarMesasField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+
         HBox cantidadMesasFieldBox = new HBox(30);
         cantidadMesasFieldBox.setAlignment(Pos.CENTER);
         cantidadMesasFieldBox.getChildren().addAll(agregarMesasField, quitarMesasField);
@@ -142,6 +161,13 @@ public class UpdateInventoryForm {
         // Agregarle el evento al los botones
         Button quitarMesasBtn = new Button("Quitar");
         quitarMesasBtn.getStyleClass().add("buttons");
+        quitarMesasBtn.setOnAction(e -> {
+            int restarCantidad = Integer.parseInt(quitarMesasField.getText().trim());
+            if (!quitarMesasField.getText().isEmpty()) {
+                restarInventario(restarCantidad, "MESA");
+                quitarMesasField.clear();
+            }
+        });
 
         HBox buttonsMesasBox = new HBox(80);
         buttonsMesasBox.setAlignment(Pos.CENTER);
@@ -226,5 +252,25 @@ public class UpdateInventoryForm {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void restarInventario(int restarCantidad, String tipo) {
+
+        String sql = "UPDATE inventario SET cantidad = cantidad - ? WHERE tipo = ?";
+
+        Connection connection;
+        PreparedStatement pstmt;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, restarCantidad);
+            pstmt.setString(2, tipo);
+
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
